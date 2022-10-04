@@ -216,7 +216,7 @@ void rev_func(const uxa_serial_msgs::msg::Transmit::ConstSharedPtr &msg)
     for (std::size_t i  = 0; i < msg->tx_data.size(); ++i) {
         msg_buf[i] = msg->tx_data[i];
     }
-    RCLCPP_INFO(node->get_logger(), "receive msg : 0x%s", print_vector(msg->tx_data).c_str());
+    RCLCPP_INFO(node->get_logger(), "receive msg : %s", print_vector(msg->tx_data).c_str());
 
     Send_Serial_String(Serial, msg_buf, msg->tx_data.size());
 }
