@@ -29,7 +29,7 @@ using namespace std;
 //#define _BAUDRATE    B500000
 //#define _BAUDRATE    B921600
 
-#define _MSG_BUFF_SIZE  20
+#define _MSG_BUFF_SIZE  64
 
 
 int Serial = -1;

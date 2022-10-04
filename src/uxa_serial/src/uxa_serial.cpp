@@ -145,6 +145,7 @@ int Init_Serial(const char *Serial_Port)
 
 }
 
+/*
 int Serial_Test(int Serial, unsigned int Test_size)
 {
 
@@ -176,6 +177,7 @@ int Serial_Test(int Serial, unsigned int Test_size)
 
     }
 }
+*/
 
 void Send_Serial_String(int Serial, unsigned char *Trans_chr, int Size)
 {
@@ -195,12 +197,25 @@ int Read_Serial_Char(int Serial, unsigned char *Recei_chr)
     return -1;
 }
 
+const std::string print_vector(const std::vector<unsigned char, std::allocator<unsigned char>>& vector)
+{
+    std::stringstream ss;
+    for (auto item : vector)
+    {
+        ss << std::hex << (int)item;
+        ss << " ";
+    }
+
+    return ss.str();
+}
+
 
 void rev_func(const uxa_serial_msgs::msg::Transmit::ConstPtr &msg)
 {
-    RCLCPP_INFO(node->get_logger(), "receive msg : 0x%x",msg->tx_data);
-    for (auto i  = 0; i < msg->tx_data.size(); ++i) {
+    for (std::size_t i  = 0; i < msg->tx_data.size(); ++i) {
         msg_buf[i] = msg->tx_data[i];
     }
+    RCLCPP_INFO(node->get_logger(), "receive msg : 0x%s", print_vector(msg->tx_data).c_str());
+
     Send_Serial_String(Serial, msg_buf, msg->tx_data.size());
 }
