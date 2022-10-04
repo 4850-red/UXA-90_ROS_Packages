@@ -15,9 +15,9 @@ using namespace std;
 
 #define _MSG_BUFF_SIZE  20
 
-void SERIAL_SUB_FUNC(const uxa_serial_msgs::msg::Receive::ConstPtr &msg);
-void SAM_POS_MOVE_FUNC(const uxa_sam_msgs::msg::PositionMove::ConstPtr &msg);
-void SAM_STD_POS_MOVE_FUNC(const uxa_sam_msgs::msg::StdPositionMove::ConstPtr &msg);
+void SERIAL_SUB_FUNC(const uxa_serial_msgs::msg::Receive::ConstSharedPtr &msg);
+void SAM_POS_MOVE_FUNC(const uxa_sam_msgs::msg::PositionMove::ConstSharedPtr &msg);
+void SAM_STD_POS_MOVE_FUNC(const uxa_sam_msgs::msg::StdPositionMove::ConstSharedPtr &msg);
 void Init_Message(std::shared_ptr<rclcpp::Node>& n);
 void Message_sender(unsigned char *Send_data, int Size);
 void SAM_send_position(unsigned char id, unsigned char torq, unsigned char pos);

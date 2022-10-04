@@ -62,9 +62,9 @@ using namespace std;
 #define BTN_STAR_0  0x2A
 
 
-void SERIAL_SUB_FUNC(const uxa_serial_msgs::msg::Receive::ConstPtr &msg);
-void UIC_REMOCON_FUNC(const uxa_uic_msgs::msg::Remocon::ConstPtr &msg);
-void UIC_MOTION_FUNC(const uxa_uic_msgs::msg::Motion::ConstPtr &msg);
+void SERIAL_SUB_FUNC(const uxa_serial_msgs::msg::Receive::ConstSharedPtr &msg);
+void UIC_REMOCON_FUNC(const uxa_uic_msgs::msg::Remocon::ConstSharedPtr &msg);
+void UIC_MOTION_FUNC(const uxa_uic_msgs::msg::Motion::ConstSharedPtr &msg);
 void Init_Message(std::shared_ptr<rclcpp::Node>& node);
 void Message_sender(unsigned char *Send_data, int Size);
 void UIC_send_remote(unsigned char remote);

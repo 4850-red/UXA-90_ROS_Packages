@@ -12,13 +12,13 @@ unsigned char Send_buf[_MSG_BUFF_SIZE] = {0xFF,0xFF,0xAA,0x55,0xAA,0x55,0x37,0xB
 unsigned char Send_pc_buf[5] = {0xFF, 0xE0, 0xE1, 0x00,};
 using namespace std;
 
-void UIC_REMOCON_FUNC(const uxa_uic_msgs::msg::Remocon::ConstPtr &msg)
+void UIC_REMOCON_FUNC(const uxa_uic_msgs::msg::Remocon::ConstSharedPtr &msg)
 {
     RCLCPP_INFO(node->get_logger(), "recieve msg : %d",msg->btn_code);
     UIC_send_remote(msg->btn_code);
 }
 
-void UIC_MOTION_FUNC(const uxa_uic_msgs::msg::Motion::ConstPtr &msg)
+void UIC_MOTION_FUNC(const uxa_uic_msgs::msg::Motion::ConstSharedPtr &msg)
 {
 
     if(msg->motion_name.compare("basic_motion")==0)
@@ -94,7 +94,7 @@ void Message_sender(unsigned char *Send_data, int Size)
 void UIC_send_remote(unsigned char remote)
 {
     Send_buf[8] = 0x14;
-    for(char cnt = 9; cnt < 13; cnt++)
+    for(std::size_t cnt = 9; cnt < 13; cnt++)
         Send_buf[cnt] = 0x00;
     Send_buf[13] = 0x01;
     Send_buf[14] = remote;

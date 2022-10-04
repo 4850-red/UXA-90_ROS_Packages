@@ -13,17 +13,17 @@ unsigned char Send_buf[_MSG_BUFF_SIZE];
 
 using namespace std;
 
-void SERIAL_SUB_FUNC(const uxa_serial_msgs::msg::Receive::ConstPtr &msg)
+void SERIAL_SUB_FUNC(const uxa_serial_msgs::msg::Receive::ConstSharedPtr &msg)
 {
     RCLCPP_INFO(node->get_logger(), "recieve msg : 0x%x",msg->rx_data);
 }
 
-void SAM_POS_MOVE_FUNC(const uxa_sam_msgs::msg::PositionMove::ConstPtr &msg)
+void SAM_POS_MOVE_FUNC(const uxa_sam_msgs::msg::PositionMove::ConstSharedPtr &msg)
 {
     SAM_send_position(msg->id, msg->torqlevel, msg->pos);
 }
 
-void SAM_STD_POS_MOVE_FUNC(const uxa_sam_msgs::msg::StdPositionMove::ConstPtr &msg)
+void SAM_STD_POS_MOVE_FUNC(const uxa_sam_msgs::msg::StdPositionMove::ConstSharedPtr &msg)
 {
     SAM_send_std_position(msg->id, msg->pos14);
 }
