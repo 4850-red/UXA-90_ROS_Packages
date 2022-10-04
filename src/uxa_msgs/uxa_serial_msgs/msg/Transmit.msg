@@ -1,1 +1,1 @@
-uint8 tx_data
+uint8[] tx_data

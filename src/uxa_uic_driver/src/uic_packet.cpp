@@ -86,7 +86,7 @@ void Message_sender(unsigned char *Send_data, int Size)
 {
     for(char cnt = 0; cnt < Size; cnt++)
     {
-        serial_pub_msg.tx_data = Send_data[cnt];
+        serial_pub_msg.tx_data = std::vector<unsigned char, std::allocator<unsigned char>>(Send_data, Send_data + Size);
         uxa_serial_pub->publish(serial_pub_msg);
     }
 }
@@ -106,10 +106,10 @@ void UIC_send_remote(unsigned char remote)
 void UIC_send_pc_control_remote(unsigned char remote)
 {
     unsigned char cnt = 0;
-    unsigned char buf[5] = {0xFF, 0xE0, 0xE1, 0x00, remote };
+    unsigned char buf[6];  // = {0xFF, 0xE0, 0xE1, 0x00, remote };
     buf[cnt++] = 0xFF;
-    buf[cnt++] = (unsigned char)(7 << 5);
-    buf[cnt++] = 225;
+    buf[cnt++] = 0xE0;
+    buf[cnt++] = 0xE1;
     buf[cnt++] = 0;
     buf[cnt++] = remote;
     buf[cnt++] = (buf[1]^buf[2]^buf[3]^buf[4]) & 0x7F;

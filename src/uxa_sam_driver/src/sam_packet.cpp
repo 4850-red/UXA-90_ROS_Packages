@@ -58,7 +58,7 @@ void Message_sender(unsigned char *Send_data, int Size)
 {
     for(char cnt = 0; cnt < Size; cnt++)
     {
-        serial_pub_msg.tx_data = Send_data[cnt];
+        serial_pub_msg.tx_data = std::vector<unsigned char, std::allocator<unsigned char>>(Send_data, Send_data + Size);
         uxa_serial_pub->publish(serial_pub_msg);
     }
 }

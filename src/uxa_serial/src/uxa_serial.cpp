@@ -9,6 +9,8 @@ int main(int argc, char **argv)
     rclcpp::init(argc, argv);
     node = rclcpp::Node::make_shared("uxa_serial");
 
+    msg_buf = new unsigned char[_MSG_BUFF_SIZE];
+
 
     // ros::Publisher uxa_serial_pub = n.advertise<uxa_serial_msgs::receive>("uxa_serial_publisher", _MSG_BUFF_SIZE);
     // ros::Subscriber uxa_serial_sub = n.subscribe<uxa_serial_msgs::transmit>("uxa_serial_subscriber", _MSG_BUFF_SIZE, rev_func);
@@ -83,6 +85,7 @@ int main(int argc, char **argv)
     cout << "SERIAL : " << Serial << " Device close." << endl;
     close(Serial);
     cout << "SERIAL : " << "uxa_serial node terminate." << endl;
+    delete msg_buf;
     return 0;
 }
 
@@ -135,7 +138,7 @@ int Init_Serial(const char *Serial_Port)
     cfsetispeed(&Serial_Setting, _BAUDRATE);
     cfsetospeed(&Serial_Setting, _BAUDRATE);
 
-    tcflush(Serial, TCIFLUSH);
+    tcflush(Serial, TCIOFLUSH); // originally TCIFLUSH
     tcsetattr(Serial, TCSANOW, &Serial_Setting);
 
     return Serial;
@@ -196,6 +199,8 @@ int Read_Serial_Char(int Serial, unsigned char *Recei_chr)
 void rev_func(const uxa_serial_msgs::msg::Transmit::ConstPtr &msg)
 {
     RCLCPP_INFO(node->get_logger(), "receive msg : 0x%x",msg->tx_data);
-    *msg_buf = msg->tx_data;
-    Send_Serial_Char(Serial, msg_buf);
+    for (auto i  = 0; i < msg->tx_data.size(); ++i) {
+        msg_buf[i] = msg->tx_data[i];
+    }
+    Send_Serial_String(Serial, msg_buf, msg->tx_data.size());
 }
