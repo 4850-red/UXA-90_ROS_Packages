@@ -202,6 +202,7 @@ const std::string print_vector(const std::vector<unsigned char, std::allocator<u
     std::stringstream ss;
     for (auto item : vector)
     {
+        ss << "0x";
         ss << std::hex << (int)item;
         ss << " ";
     }
@@ -210,7 +211,7 @@ const std::string print_vector(const std::vector<unsigned char, std::allocator<u
 }
 
 
-void rev_func(const uxa_serial_msgs::msg::Transmit::ConstPtr &msg)
+void rev_func(const uxa_serial_msgs::msg::Transmit::ConstSharedPtr &msg)
 {
     for (std::size_t i  = 0; i < msg->tx_data.size(); ++i) {
         msg_buf[i] = msg->tx_data[i];

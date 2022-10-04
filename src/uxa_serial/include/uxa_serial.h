@@ -40,7 +40,7 @@ int Serial_Test(int Serial, unsigned int Test_size);
 void Send_Serial_String(int Serial, unsigned char *Trans_chr, int Size);
 void Send_Serial_Char(int Serial, unsigned char *Trans_chr);
 int Read_Serial_Char(int Serial, unsigned char *Recei_chr);
-void rev_func(const uxa_serial_msgs::msg::Transmit::ConstPtr &msg);
+void rev_func(const uxa_serial_msgs::msg::Transmit::ConstSharedPtr &msg);
 
 
 #endif // UXA_SERIAL_H
