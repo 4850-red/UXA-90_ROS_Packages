@@ -1,0 +1,5 @@
+<launch>
+  <node pkg="uxa_serial" exec="uxa_serial" name="uxa_serial" output="full"/>
+  <node pkg="uxa_uic_driver" exec="uxa_uic_driver" name="uxa_uic_driver" output="full"/>
+  <node pkg="uxa_sam_driver" exec="uxa_sam_driver" name="uxa_sam_driver" output="full"/>
+</launch>
