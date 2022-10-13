@@ -20,11 +20,13 @@ void SERIAL_SUB_FUNC(const uxa_serial_msgs::msg::Receive::ConstSharedPtr &msg)
 
 void SAM_POS_MOVE_FUNC(const uxa_sam_msgs::msg::PositionMove::ConstSharedPtr &msg)
 {
+    RCLCPP_INFO(node->get_logger(), "recieve msg: ID: %u, Pos: %u, Torq: %u",msg->id, msg->pos, msg->torqlevel);
     SAM_send_position(msg->id, msg->torqlevel, msg->pos);
 }
 
 void SAM_STD_POS_MOVE_FUNC(const uxa_sam_msgs::msg::StdPositionMove::ConstSharedPtr &msg)
 {
+    RCLCPP_INFO(node->get_logger(), "recieve msg: ID: %u, Pos: %u", msg->id, msg->pos14);
     SAM_send_std_position(msg->id, msg->pos14);
 }
 

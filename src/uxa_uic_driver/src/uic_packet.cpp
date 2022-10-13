@@ -14,12 +14,13 @@ using namespace std;
 
 void UIC_REMOCON_FUNC(const uxa_uic_msgs::msg::Remocon::ConstSharedPtr &msg)
 {
-    RCLCPP_INFO(node->get_logger(), "recieve msg : %d",msg->btn_code);
+    RCLCPP_INFO(node->get_logger(), "recieve msg : btn_code: %d",msg->btn_code);
     UIC_send_remote(msg->btn_code);
 }
 
 void UIC_MOTION_FUNC(const uxa_uic_msgs::msg::Motion::ConstSharedPtr &msg)
 {
+    RCLCPP_INFO(node->get_logger(), "recieve msg : motion_name: %s", msg->motion_name.c_str());
 
     if(msg->motion_name.compare("basic_motion")==0)
         UIC_send_pc_control_remote(BTN_A);
