@@ -12,8 +12,11 @@ find_package(ament_cmake REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
-        "msg/PositionMove.msg"
+  "msg/PositionMove.msg"
 	"msg/StdPositionMove.msg"
+  "srv/Status.srv"
+  "srv/PositionMove.srv"
+  "srv/StdPositionMove.srv"
 )
 
 if(BUILD_TESTING)

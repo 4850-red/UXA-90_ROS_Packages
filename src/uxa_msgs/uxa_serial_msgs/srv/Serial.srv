@@ -1,0 +1,5 @@
+uint8[] tx_data
+bool expect
+---
+uint8[2] rx_data
+bool success

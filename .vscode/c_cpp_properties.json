@@ -6,15 +6,13 @@
         "limitSymbolsToIncludedHeaders": false
       },
       "includePath": [
-        "/home/jack/wrkspace/install/uxa_uic_msgs/include/**",
-        "/home/jack/wrkspace/install/uxa_serial_msgs/include/**",
-        "/home/jack/wrkspace/install/uxa_sam_msgs/include/**",
+        "/home/jack/Documents/UXA-90_ROS_Packages/install/uxa_uic_msgs/include/**",
+        "/home/jack/Documents/UXA-90_ROS_Packages/install/uxa_serial_msgs/include/**",
+        "/home/jack/Documents/UXA-90_ROS_Packages/install/uxa_sam_msgs/include/**",
         "/opt/ros/humble/include/**",
-        "/home/jack/wrkspace/src/uxa_msgs/uxa_sam_msgs/include/**",
-        "/home/jack/wrkspace/src/uxa_msgs/uxa_serial_msgs/include/**",
-        "/home/jack/wrkspace/src/uxa_sam_driver/include/**",
-        "/home/jack/wrkspace/src/uxa_serial/include/**",
-        "/home/jack/wrkspace/src/uxa_uic_driver/include/**",
+        "/home/jack/Documents/UXA-90_ROS_Packages/src/uxa_sam_driver/include/**",
+        "/home/jack/Documents/UXA-90_ROS_Packages/src/uxa_serial/include/**",
+        "/home/jack/Documents/UXA-90_ROS_Packages/src/uxa_uic_driver/include/**",
         "/usr/include/**"
       ],
       "name": "ROS",

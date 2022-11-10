@@ -14,7 +14,9 @@ find_package(rosidl_default_generators REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
 	"msg/Receive.msg"
-  "msg/Transmit.msg" # Add packages that above messages depend on, in this case geometry_msgs for Sphere.msg
+  "msg/Transmit.msg"
+  "srv/Status.srv"
+  "srv/Serial.srv"
 )
 
 if(BUILD_TESTING)

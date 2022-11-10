@@ -7,9 +7,13 @@
 
 #include <uxa_serial_msgs/msg/receive.hpp>
 #include <uxa_serial_msgs/msg/transmit.hpp>
+#include <uxa_serial_msgs/srv/status.hpp>
 
 #include <uxa_sam_msgs/msg/position_move.hpp>
 #include <uxa_sam_msgs/msg/std_position_move.hpp>
+#include <uxa_sam_msgs/srv/status.hpp>
+
+
 
 using namespace std;
 
@@ -22,5 +26,13 @@ void Init_Message(std::shared_ptr<rclcpp::Node>& n);
 void Message_sender(unsigned char *Send_data, int Size);
 void SAM_send_position(unsigned char id, unsigned char torq, unsigned char pos);
 void SAM_send_std_position(unsigned char id, unsigned int pos);
+
+void handleStatusServiceRequest(
+    const std::shared_ptr<uxa_sam_msgs::srv::Status::Request> request, 
+    std::shared_ptr<uxa_sam_msgs::srv::Status::Response> response
+);
+
+void init_serial_client();
+
 
 #endif // SAM_PACKET_H

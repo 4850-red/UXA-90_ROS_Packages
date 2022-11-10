@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.8)
 project(uxa_sam_driver)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  add_compile_options(-Wall -Wextra -Wpedantic)
+  add_compile_options(-Wall -Wextra -Wpedantic -Wno-unused-parameter)
 endif()
 
 # find dependencies
@@ -14,7 +14,11 @@ find_package(uxa_serial_msgs REQUIRED)
 find_package(uxa_sam_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 
-add_executable(uxa_sam_driver src/uxa_sam_driver.cpp src/sam_packet.cpp)
+add_executable(uxa_sam_driver 
+  src/uxa_sam_driver.cpp 
+  src/sam_packet.cpp 
+  src/sam_position_service.cpp
+)
 ament_target_dependencies(uxa_sam_driver rclcpp uxa_serial_msgs uxa_sam_msgs std_msgs)
 
 target_include_directories(uxa_sam_driver

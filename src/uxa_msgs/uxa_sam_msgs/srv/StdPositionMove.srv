@@ -1,0 +1,5 @@
+uint8 id
+uint16 pos14
+---
+uint8 current
+uint8 position

@@ -5,6 +5,7 @@
 #include <iostream>
 #include <rclcpp/rclcpp.hpp>
 #include "sam_packet.h"
+#include "sam_position_service.h"
 
 using namespace std;
 

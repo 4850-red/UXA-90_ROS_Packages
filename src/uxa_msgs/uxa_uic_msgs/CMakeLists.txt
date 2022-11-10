@@ -15,6 +15,7 @@ find_package(rosidl_default_generators REQUIRED)
 rosidl_generate_interfaces(${PROJECT_NAME}
 	"msg/Remocon.msg"
   "msg/Motion.msg"
+  "srv/Status.srv"
 )
 
 if(BUILD_TESTING)

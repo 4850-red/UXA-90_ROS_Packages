@@ -1,0 +1,6 @@
+uint8 id
+uint8 torqlevel
+uint8 pos
+---
+uint8 current
+uint8 position
