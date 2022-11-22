@@ -58,4 +58,4 @@ RUN sed --in-place --expression \
       /ros_entrypoint.sh
 
 # run launch file
-CMD ["ros2", "launch", "uxa_serial", "/opt/ros/overlay_ws/UXA-90_ROS_Packages/launch/uxa-system-launch.xml"]
+CMD ["ros2", "launch", "uxa_serial", "uxa-system-launch.xml"]
