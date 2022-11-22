@@ -1,0 +1,4 @@
+PositionMove[] positions
+---
+uint8[] currents
+uint8[] positions

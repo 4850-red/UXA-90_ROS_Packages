@@ -17,6 +17,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "srv/Status.srv"
   "srv/PositionMove.srv"
   "srv/StdPositionMove.srv"
+  "srv/MultiMove.srv"
 )
 
 if(BUILD_TESTING)
