@@ -18,7 +18,7 @@ int main(int argc, char **argv)
     auto uxa_serial_pub = node->create_publisher<uxa_serial_msgs::msg::Receive>("uxa_serial_publisher", _MSG_BUFF_SIZE);
     rclcpp::Rate loop_rate(1000);
 
-    // auto uxa_serial_sub = node->create_subscription<uxa_serial_msgs::msg::Transmit>("uxa_serial_subscriber", 10, rev_func);
+    auto uxa_serial_sub = node->create_subscription<uxa_serial_msgs::msg::Transmit>("uxa_serial_subscriber", 10, rev_func);
 
     auto uxa_serial_status_service = node->create_service<uxa_serial_msgs::srv::Status>("uxa_serial/status", &handleStatusServiceRequest);
 

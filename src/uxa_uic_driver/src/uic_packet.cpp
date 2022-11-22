@@ -85,11 +85,8 @@ void Init_Message(std::shared_ptr<rclcpp::Node>& n)
 
 void Message_sender(unsigned char *Send_data, int Size)
 {
-    for(char cnt = 0; cnt < Size; cnt++)
-    {
-        serial_pub_msg.tx_data = std::vector<unsigned char, std::allocator<unsigned char>>(Send_data, Send_data + Size);
-        uxa_serial_pub->publish(serial_pub_msg);
-    }
+    serial_pub_msg.tx_data = std::vector<unsigned char, std::allocator<unsigned char>>(Send_data, Send_data + Size);
+    uxa_serial_pub->publish(serial_pub_msg);
 }
 
 void UIC_send_remote(unsigned char remote)
