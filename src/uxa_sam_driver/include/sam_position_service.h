@@ -1,8 +1,6 @@
 #ifndef SAM_POSITION_SERVICE_H
 #define SAM_POSITION_SERVICE_H
 
-#include <iostream>
-
 #include <rclcpp/rclcpp.hpp>
 
 #include <uxa_sam_msgs/srv/position_move.hpp>
