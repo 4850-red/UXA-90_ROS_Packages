@@ -5,7 +5,7 @@ ARG OVERLAY_WS=/opt/ros/overlay_ws
 
 WORKDIR ${OVERLAY_WS}
 COPY . .
-RUN rm -r ${OVERLAY_WS}/install && rm -r ${OVERLAY_WS}/build
+RUN rm -rf ${OVERLAY_WS}/install && rm -rf ${OVERLAY_WS}/build
 RUN . /opt/ros/$ROS_DISTRO/setup.sh && colcon build
 
 
