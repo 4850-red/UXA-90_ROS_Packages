@@ -264,13 +264,15 @@ void handleSerialServiceRequest(
 
     Send_Serial_String(SerialMode, msg_buf, request->tx_data.size());
 
-    unsigned char *receive_buf = new unsigned char[2];
+    auto total = request->expect * 2;
+    unsigned char *receive_buf = new unsigned char[total];
 
-    if (request->expect) {
-        if(Read_Chars(SerialMode, receive_buf, 2) == 1)
+    if (request->expect > 0) {
+        if(Read_Chars(SerialMode, receive_buf, total) == 1)
         {
-            response->rx_data[0] = receive_buf[0];
-            response->rx_data[1] = receive_buf[1];
+            for (auto i = 0; i < total; i += 1)
+                response->rx_data.push_back(receive_buf[i]);
+            
             response->success = true;
             RCLCPP_INFO(node->get_logger(), "RECEIVED SERIAL RESPONSE: 0x%x, 0x%x, SETTING RESPONSE", receive_buf[0], receive_buf[1]);
         } else {
