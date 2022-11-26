@@ -1,6 +1,7 @@
 ARG ROS_VERSION=humble
+ARG ROS_PLATFORM=
 
-FROM ros:${ROS_VERSION} AS builder
+FROM ${ROS_PLATFORM}ros:${ROS_VERSION} AS builder
 ARG OVERLAY_WS=/opt/ros/overlay_ws
 
 WORKDIR ${OVERLAY_WS}
@@ -10,7 +11,7 @@ RUN . /opt/ros/$ROS_DISTRO/setup.sh && colcon build
 
 
 
-FROM ros:${ROS_VERSION}-ros-core AS exec
+FROM ${ROS_PLATFORM}ros:${ROS_VERSION}-ros-core AS exec
 ARG OVERLAY_WS=/opt/ros/overlay_ws
 WORKDIR ${OVERLAY_WS}
 
