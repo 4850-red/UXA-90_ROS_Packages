@@ -7,7 +7,7 @@ ARG OVERLAY_WS=/opt/ros/overlay_ws
 WORKDIR ${OVERLAY_WS}
 COPY . .
 
-RUN . /opt/ros/$ROS_DISTRO/setup.sh && colcon build
+RUN . /opt/ros/$ROS_DISTRO/setup.sh && colcon build --executor sequential
 
 
 
