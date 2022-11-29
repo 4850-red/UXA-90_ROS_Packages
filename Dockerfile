@@ -7,7 +7,7 @@ ARG OVERLAY_WS=/opt/ros/overlay_ws
 WORKDIR ${OVERLAY_WS}
 COPY . .
 
-RUN . /opt/ros/$ROS_DISTRO/setup.sh && colcon build --executor sequential
+RUN . /opt/ros/$ROS_DISTRO/setup.sh && colcon build --parallel-workers 2
 
 
 
@@ -23,6 +23,5 @@ RUN sed --in-place --expression \
       '$isource "$OVERLAY_WS/setup.bash"' \
       /ros_entrypoint.sh
 
-RUN echo "chmod 777 /dev/ttyUSB0" >> /cmd.sh && echo "ls -l /dev" >> /cmd.sh && echo "ros2 launch uxa_serial uxa-system-launch.xml" >> /cmd.sh
-# run launch file
-CMD ["sh", "/cmd.sh"]
+# run launch command
+CMD ["ros2", "launch", "uxa_serial", "uxa-system-launch.xml"]
