@@ -91,6 +91,19 @@ void handlePositionMoveServiceRequest(
     delete []send_buf;
 }
 
+const std::string print_vector(const std::vector<unsigned char, std::allocator<unsigned char>>& vector)
+{
+    std::stringstream ss;
+    for (auto item : vector)
+    {
+        ss << "0x";
+        ss << std::hex << (int)item;
+        ss << " ";
+    }
+
+    return ss.str();
+}
+
 void handleMultiMoveServiceRequest(
     const uxa_sam_msgs::srv::MultiMove::Request::SharedPtr request,
     uxa_sam_msgs::srv::MultiMove::Response::SharedPtr response
@@ -98,8 +111,8 @@ void handleMultiMoveServiceRequest(
     if (request->positions.size() == 0)
     {
         RCLCPP_ERROR(node->get_logger(), "RECEIVED AN EMPTY POSITION MULTIMOVE REQUEST");
-        response->currents[0] = 0;
-        response->positions[0] = 0;
+        response->currents.push_back(0);
+        response->positions.push_back(0);
         return;
     }
 
@@ -127,13 +140,13 @@ void handleMultiMoveServiceRequest(
         send_buf[shift] = 0xFF;
         send_buf[shift + 1] = id | (torq << 5);
         send_buf[shift + 2] = pos;
-        send_buf[shift + 3] = (send_buf[1]^send_buf[2]) & 0x7F;
+        send_buf[shift + 3] = (send_buf[shift + 1]^send_buf[shift + 2]) & 0x7F;
     }
 
     auto serial_request = std::make_shared<uxa_serial_msgs::srv::Serial::Request>();
 
     serial_request->tx_data = std::vector<unsigned char, std::allocator<unsigned char>>(send_buf, send_buf + positionCount * 4);
-    serial_request->expect = 1;
+    serial_request->expect = positionCount;
 
 
     auto result = uxa_serial_serial_client->async_send_request(serial_request);
@@ -190,6 +203,5 @@ void handleMultiMoveServiceRequest(
             response->positions.push_back(0);
         }
     }
-
     delete []send_buf;
 }

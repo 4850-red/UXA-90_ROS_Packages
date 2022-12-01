@@ -22,7 +22,7 @@ int main(int argc, char **argv)
 
     auto uxa_serial_status_service = node->create_service<uxa_serial_msgs::srv::Status>("uxa_serial/status", &handleStatusServiceRequest);
 
-    // ros::Rate loop_rate(1000);
+    // ros::Rate loop_rate();
 
     if((SerialMode = Init_Serial(_SERIAL_PORT)) != -1)
     {
@@ -208,10 +208,12 @@ int Read_Serial_Char(int Serial, unsigned char *Recei_chr)
 
 int Read_Chars(int Serial, unsigned char *receive_chr, int count)
 {
-    if (read(Serial, receive_chr, count))
-        return 1;
-    else
+    int rec_count = read(Serial, receive_chr, count);
+    RCLCPP_INFO(node->get_logger(), "Expected %d, Received %d characters", count, rec_count);
+    if (count != rec_count)
         return -1;
+    else
+        return 1;
 }
 
 const std::string print_vector(const std::vector<unsigned char, std::allocator<unsigned char>>& vector)
@@ -265,7 +267,7 @@ void handleSerialServiceRequest(
     Send_Serial_String(SerialMode, msg_buf, request->tx_data.size());
 
     auto total = request->expect * 2;
-    unsigned char *receive_buf = new unsigned char[total];
+    unsigned char *receive_buf = new unsigned char[total * 2];
 
     if (request->expect > 0) {
         if(Read_Chars(SerialMode, receive_buf, total) == 1)
@@ -274,7 +276,7 @@ void handleSerialServiceRequest(
                 response->rx_data.push_back(receive_buf[i]);
             
             response->success = true;
-            RCLCPP_INFO(node->get_logger(), "RECEIVED SERIAL RESPONSE: 0x%x, 0x%x, SETTING RESPONSE", receive_buf[0], receive_buf[1]);
+            RCLCPP_INFO(node->get_logger(), "RECEIVED SERIAL RESPONSE: %s, SETTING RESPONSE", print_vector(response->rx_data).c_str());
         } else {
             RCLCPP_ERROR(node->get_logger(), "ERROR, FAILED TO RECEIVE SERIAL RESPONSE. SENDING 0xFF");
             response->success = false;
